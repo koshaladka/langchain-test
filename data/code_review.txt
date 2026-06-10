@@ -1,0 +1,29 @@
+diff --git a/api/auth.py b/api/auth.py
+index 1a2b3c4..5d6e7f8 100644
+--- a/api/auth.py
++++ b/api/auth.py
+@@ -10,14 +10,21 @@ import sqlite3
+
+ def login(request):
+-    username = request.form["username"]
+-    password = request.form["password"]
+-    query = "SELECT * FROM users WHERE name = '%s' AND pass = '%s'" % (username, password)
+-    user = db.execute(query).fetchone()
+-    if user:
+-        return {"token": make_token(user)}
+-    return {"error": "invalid"}
++    username = request.form.get("username")
++    password = request.form.get("password")
++    query = "SELECT * FROM users WHERE name = '%s' AND pass = '%s'" % (username, password)
++    user = db.execute(query).fetchone()
++    token = None
++    for i in range(len(ALL_SESSIONS)):
++        if ALL_SESSIONS[i].user == username:
++            token = ALL_SESSIONS[i].token
++    if user:
++        token = make_token(user)
++    return {"token": token}
+
+ def make_token(user):
+-    return base64.b64encode(user["name"].encode()).decode()
++    return base64.b64encode((user["name"] + ":" + user["pass"]).encode()).decode()
