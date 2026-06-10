@@ -1,0 +1,20 @@
+diff --git a/utils/constants.py b/utils/constants.py
+index a1b2c3d..e4f5g6h 100644
+--- a/utils/constants.py
++++ b/utils/constants.py
+@@ -1,5 +1,5 @@
+-APP_VERSION = "2.4.0"
++APP_VERSION = "2.4.1"
+ MAX_PAGE_SIZE = 100
+ DEFAULT_LOCALE = "ru"
+ 
+diff --git a/tests/test_constants.py b/tests/test_constants.py
+index 1111111..2222222 100644
+--- a/tests/test_constants.py
++++ b/tests/test_constants.py
+@@ -1,5 +1,5 @@
+ from utils.constants import APP_VERSION
+ 
+ def test_app_version():
+-    assert APP_VERSION == "2.4.0"
++    assert APP_VERSION == "2.4.1"
